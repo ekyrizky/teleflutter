@@ -9,7 +9,7 @@ publishing {
     publications {
         mavenAar(MavenPublication) {
             groupId = 'com.ekyrizky'
-            artifactId = 'auth-dummy'
+            artifactId = 'teleflutter'
             version = '1.0.0'
 
             // Add the AAR file as the primary artifact
@@ -19,7 +19,7 @@ publishing {
             pom.withXml {
                 asNode().appendNode('description', 'Flutter module as Android library')
                 asNode().appendNode('name', 'Flutter SDK') 
-                asNode().appendNode('url', 'https://https://github.com/ekyrizky/auth-dummy')
+                asNode().appendNode('url', 'https://https://github.com/ekyrizky/teleflutter')
                 
             }
         }
