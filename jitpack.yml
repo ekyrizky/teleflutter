@@ -1,31 +1,14 @@
-version: 1.0
-
-branches:
-  - main # Update this if you are using a different branch for releases.
-
-before_install:
-  - git submodule update --init --recursive # Optional, only if you're using submodules in your repo.
-
-build:
-  - flutter pub get # Install Flutter dependencies for your module.
-  - flutter build aar # Build the .aar file from your Flutter module.
-
 install:
   - |
-    # Define the path to your generated .aar file
-    AAR_FILE="build/aar/flutter_release-1.0.aar"  # Update with your actual .aar name
-
-    # Check if the .aar file exists
-    if [ -f "$AAR_FILE" ]; then
-      echo "AAR file found"
-    else
-      echo "AAR file missing, aborting!"
-      exit 1
-    fi
-
-    # Install the .aar file to Jitpack's Maven repository
-    mvn install:install-file -Dfile=$AAR_FILE -DgroupId=com.ekyrizky -DartifactId=teleflutter -Dversion=1.0.0 -Dpackaging=aar -DgeneratePom=true
-
-deploy:
-  - name: Publish AAR to Jitpack
-    file: $AAR_FILE # Path to the .aar file to be deployed
+    AAR_FILE="flutter_release-1.0.aar"
+    MODULE_FILE="flutter_release-1.0.module"
+    POM_FILE="flutter_release-1.0.pom"
+    
+    # Install AAR
+    mvn install:install-file -Dfile=$AAR_FILE -DgroupId=com.ekyrizky -DartifactId=teleflutter -Dversion=1.0 -Dpackaging=aar -DgeneratePom=true
+        
+    # Install module file
+    mvn install:install-file -Dfile=$MODULE_FILE -DgroupId=com.ekyrizky -DartifactId=teleflutter -Dversion=1.0 -Dpackaging=module -DgeneratePom=true
+    
+    # Install POM file
+    mvn install:install-file -Dfile=$POM_FILE -DgroupId=com.ekyrizky -DartifactId=teleflutter -Dversion=1.0 -Dpackaging=pom -DgeneratePom=true
