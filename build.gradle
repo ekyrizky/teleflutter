@@ -1,0 +1,31 @@
+plugins {
+    id 'maven-publish'
+}
+
+group = 'com.ekyrizky' // Replace with your GitHub username
+version = '1.0.0'
+
+publishing {
+    publications {
+        mavenAar(MavenPublication) {
+            groupId = 'com.ekyrizky'
+            artifactId = 'auth-dummy'
+            version = '1.0.0'
+
+            // Add the AAR file as the primary artifact
+            artifact file('flutter_release.1.0.aar')
+
+            // Optional: Attach the POM file if it's required
+            pom.withXml {
+                asNode().appendNode('description', 'Flutter module as Android library')
+                asNode().appendNode('name', 'Flutter SDK') 
+                asNode().appendNode('url', 'https://https://github.com/ekyrizky/auth-dummy')
+                
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
